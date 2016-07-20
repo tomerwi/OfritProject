@@ -31,14 +31,14 @@ sentence_end_token = "SENTENCE_END"
 
 with open('data/harrypotter.txt', 'rb') as f:
 
-reader = f.readlines()
+    reader = f.readlines()
 
-#### comment: Split into sentences
+    #### comment: Split into sentences
 
-sentences = itertools.chain(*[nltk.sent_tokenize(x.decode('utf-8').lower()) for x in reader])
+    sentences = itertools.chain(*[nltk.sent_tokenize(x.decode('utf-8').lower()) for x in reader])
 
-#### comment: Append SENTENCE_START and SENTENCE_END
-sentences = ["%s %s %s" % (sentence_start_token, x, sentence_end_token) for x in sentences]
+    #### comment: Append SENTENCE_START and SENTENCE_END
+    sentences = ["%s %s %s" % (sentence_start_token, x, sentence_end_token) for x in sentences]
 print ("Parsed %d sentences." % (len(sentences)))
 
 #### comment: Tokenize the sentences into words
