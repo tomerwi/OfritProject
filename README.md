@@ -20,13 +20,17 @@ In addition, in the past we never study this kind of analysis sequences so that 
 ### Preprocessing
 
 vocabulary_size = 7000
+
 unknown_token = "UNKNOWN_TOKEN"
+
 sentence_start_token = "SENTENCE_START"
+
 sentence_end_token = "SENTENCE_END"
 
 #### comment: We read the data and append SENTENCE_START and SENTENCE_END tokens
 
 with open('data/harrypotter.txt', 'rb') as f:
+
 reader = f.readlines()
 
 #### comment: Split into sentences
