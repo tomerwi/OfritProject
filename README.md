@@ -83,7 +83,7 @@ for i, sent in enumerate(tokenized_sentences):
 
     tokenized_sentences[i] = [w if w in word_to_index else unknown_token for w in sent]
 
-#### comment: Create the training data
+#### comment: Create the training data. X is the sentences, Y is the sentences shifted right by one position. In this structure the model knows which word comes after each word. 
 X_train = np.asarray([[word_to_index[w] for w in sent[:-1]] for sent in tokenized_sentences])
 
 y_train = np.asarray([[word_to_index[w] for w in sent[1:]] for sent in tokenized_sentences])
