@@ -32,7 +32,7 @@ sentence_start_token = "SENTENCE_START"
 
 sentence_end_token = "SENTENCE_END"
 
-#### comment: We read the data and append SENTENCE_START and SENTENCE_END tokens
+#### comment: Inilize variables. Replace all the words which are not in our vocabulary with "Unknown_Token". Append Setence_Start ans Sentence_End to the sentence - it is used becuase we want to "teach" the model which words open sentences and which one end them. 
 
 with open('data/harrypotter.txt', 'rb') as f:
 
@@ -46,7 +46,7 @@ with open('data/harrypotter.txt', 'rb') as f:
     sentences = ["%s %s %s" % (sentence_start_token, x, sentence_end_token) for x in sentences]
 print ("Parsed %d sentences." % (len(sentences)))
 
-#### comment: Tokenize the sentences into words
+#### comment: Read the data to the memory and tokenize into sentences. 
 tokenized_sentences = [nltk.word_tokenize(sent) for sent in sentences]
 
 #### comment: Count the word frequencies
