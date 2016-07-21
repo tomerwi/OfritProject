@@ -25,6 +25,8 @@ Data Analysis:
 ### Preprocessing
 
 #### comment: Inilize variables. Replace all the words which are not in our vocabulary with "Unknown_Token". Append Setence_Start ans Sentence_End to the sentence - it is used becuase we want to "teach" the model which words open sentences and which one end them.
+Leraning rate - regulzation parameter - mainly used to prevent overfitting.
+Nepoch - number of iterations in the training phaze. 
 
 vocabulary_size = 7000
 
@@ -52,9 +54,9 @@ with open('data/harrypotter.txt', 'rb') as f:
 
     #### comment: Append SENTENCE_START and SENTENCE_END
     sentences = ["%s %s %s" % (sentence_start_token, x, sentence_end_token) for x in sentences]
-print ("Parsed %d sentences." % (len(sentences)))
 
-#### comment: Tokenize words in each sentence
+
+#### comment: Tokenize words in each sentence (for example - Please come here! ->> {please} {come} {here} {!}. 
 tokenized_sentences = [nltk.word_tokenize(sent) for sent in sentences]
 
 
@@ -62,7 +64,7 @@ tokenized_sentences = [nltk.word_tokenize(sent) for sent in sentences]
 #### comment: Count the word freqencies
 word_freq = nltk.FreqDist(itertools.chain(*tokenized_sentences))
 
-print ("Found %d unique words tokens." % len(word_freq.items()))
+
 
 
 
@@ -74,9 +76,7 @@ index_to_word.append(unknown_token)
 
 word_to_index = dict([(w, i) for i, w in enumerate(index_to_word)])
 
-print ("Using vocabulary size %d." % vocabulary_size)
 
-print ("The least frequent word in our vocabulary is '%s' and appeared %d times." % (vocab[-1][0], vocab[-1][1]))
 
 #### comment: Replace all words not in our vocabulary with the unknown token
 for i, sent in enumerate(tokenized_sentences):
