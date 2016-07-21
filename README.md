@@ -24,6 +24,8 @@ Data Analysis:
 
 ### Preprocessing
 
+#### comment: Inilize variables. Replace all the words which are not in our vocabulary with "Unknown_Token". Append Setence_Start ans Sentence_End to the sentence - it is used becuase we want to "teach" the model which words open sentences and which one end them.
+
 vocabulary_size = 7000
 
 unknown_token = "UNKNOWN_TOKEN"
@@ -32,8 +34,14 @@ sentence_start_token = "SENTENCE_START"
 
 sentence_end_token = "SENTENCE_END"
 
-#### comment: Inilize variables. Replace all the words which are not in our vocabulary with "Unknown_Token". Append Setence_Start ans Sentence_End to the sentence - it is used becuase we want to "teach" the model which words open sentences and which one end them. 
+_HIDDEN_DIM = 50
+_LEARNING_RATE = 0.005
+_NEPOCH = 100
 
+
+
+
+#### comment: Read the data to the memory and tokenize into sentences. 
 with open('data/harrypotter.txt', 'rb') as f:
 
     reader = f.readlines()
@@ -46,15 +54,19 @@ with open('data/harrypotter.txt', 'rb') as f:
     sentences = ["%s %s %s" % (sentence_start_token, x, sentence_end_token) for x in sentences]
 print ("Parsed %d sentences." % (len(sentences)))
 
-#### comment: Read the data to the memory and tokenize into sentences. 
+#### comment: Tokenize words in each sentence
 tokenized_sentences = [nltk.word_tokenize(sent) for sent in sentences]
 
-#### comment: Count the word frequencies
+
+
+#### comment: Count the word freqencies
 word_freq = nltk.FreqDist(itertools.chain(*tokenized_sentences))
 
 print ("Found %d unique words tokens." % len(word_freq.items()))
 
-#### comment: Get the most common words and build index_to_word and word_to_index vectors
+
+
+#### comment: Get the most common words (vocabulary size) and build index_to_word and word_to_index vectors
 vocab = word_freq.most_common(vocabulary_size - 1)
 
 index_to_word = [x[0] for x in vocab]
