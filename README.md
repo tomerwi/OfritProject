@@ -4,16 +4,21 @@
 
 ### Collection of data sequences
 
-The collection of data sequences that we choose is Harry Potter And The Chamber Of Secrets that wrriten by by J. K. Rowling. This is book 2 in the Harry Potter series.
+The collection of data sequences that we choדק is Harry Potter And The Chamber Of Secrets that was wrriten by by J. K. Rowling. This is the second book in Harry Potter's series
 
 2.
 
 ### Description of data
 
-We chose this topic because we both really love this topic. We both read the book series of Harry Potter as well as the movie came out we saw. Books and films very fascinated us and so we found the contents of the book text file we knew that this was the theme that we want to do about the project.
+This was actually not our first data that we tried to learn. We started this project working on a collection of speeches of Binyamin Netanyahu. We gathered and combined a lot of speeches, but when we tried to learn and train the model, we had difficulties to create sentences from it. We think the reason for that was because the collection of the speeches were no big enough. 
+We then chose Harry potter topic because that data is very big and has variety in its content (number of words, number of unique words etc). We think that the model training can be much more efficent in thie context. 
 
-The main challenge in dealing with this topic is the investigation of the words are not real words. Books of Harry Potter there are many phrases and words they use them as "magic" that these words are a lot for the book.
-In addition, in the past we never study this kind of analysis sequences so that also make it tougher on us.
+The main challenge in dealing with this topic is the investigation of the words which are not "real" words. Harry Potter's books contain many phrases and words that describe magic, which can be challenging to learn.
+In addition, in the past we never studied this kind of sequences analysys so this is also chanllenging for us. 
+
+Data Analysis:
+16238 sentences.
+7605 unique words
 
 3.
 
