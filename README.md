@@ -146,5 +146,21 @@ Training the model took us alot of time due to the high number of sentences in H
         print ("Loaded model parameters from %s. hidden_dim=%d word_dim=%d" % (path, U.shape[0], U.shape[1]))
         
         
+#### comment: Generating sentences from the model. we generate only sentences that is bigger then 7 words. Sentece is represented by the model as vector of numbers so we need to convert it to a string using the index_to_word dictionary. 
 
+    def generate_sentence(model):
+        # We start the sentence with the start token
+        new_sentence = [word_to_index[sentence_start_token]]
+        # Repeat until we get an end token
+        while not new_sentence[-1] == word_to_index[sentence_end_token] or len(new_sentence)<7:
+            next_word_probs = model.forward_propagation(new_sentence)
+            sampled_word = word_to_index[unknown_token]
+            # We don't want to sample unknown words
+            while sampled_word == word_to_index[unknown_token]:
+                samples = np.random.multinomial(1, next_word_probs[-1])
+                sampled_word = np.argmax(samples)
+            new_sentence.append(sampled_word)
+    
+        sentence_str = [index_to_word[x] for x in new_sentence[1:-1]]
+        return sentence_str
 
