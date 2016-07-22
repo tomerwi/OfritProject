@@ -43,7 +43,7 @@ _NEPOCH = 100
 
 
 
-#### comment: Read the data to the memory and tokenize into sentences. 
+#### comment: Read the data to the memory and tokenize into sentences. We used NLTK Python library for the tokenizing
 with open('data/harrypotter.txt', 'rb') as f:
 
     reader = f.readlines()
@@ -68,7 +68,8 @@ word_freq = nltk.FreqDist(itertools.chain(*tokenized_sentences))
 
 
 
-#### comment: Get the most common words (vocabulary size) and build index_to_word and word_to_index vectors
+#### comment: Get the most common words (vocabulary size) and build index_to_word and word_to_index vectors. The input for the RNN are vectors, not Strings, so we create mapping between words and indices. 
+
 vocab = word_freq.most_common(vocabulary_size - 1)
 
 index_to_word = [x[0] for x in vocab]
@@ -83,12 +84,13 @@ for i, sent in enumerate(tokenized_sentences):
 
     tokenized_sentences[i] = [w if w in word_to_index else unknown_token for w in sent]
 
-#### comment: Create the training data. X is the sentences, Y is the sentences shifted right by one position. In this structure the model knows which word comes after each word. 
+#### comment: Create the training data. X is the sentences, Y is the sentences shifted right by one position. In this structure the model knows which word comes after each word. for example - Y[3] is the next word for X[3] in the sentence. 
 X_train = np.asarray([[word_to_index[w] for w in sent[:-1]] for sent in tokenized_sentences])
 
 y_train = np.asarray([[word_to_index[w] for w in sent[1:]] for sent in tokenized_sentences])
 
-#### comment: Init the model with random values for U, S, V. This function is attached to the project code.
+#### comment: Init the model with random values for U, S, V. This function is attached to the project code. We used Theano for building the model. Theano is Python library that let you to define, optimize and evaluate mathematical expression, especially ones with multi-dimensional arrays. Because RNN are easily expressed with multi-dimensioanl arrays, Theano is a great fit. 
+
 
 model = RNNTheano(vocabulary_size, hidden_dim=_HIDDEN_DIM)
 
