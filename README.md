@@ -106,6 +106,7 @@ Training the model took us alot of time due to the high number of sentences in H
 
 
 def train_with_sgd(model, X_train, y_train, learning_rate, nepoch, evaluate_loss_after=5):
+
     # We keep track of the losses so we can plot them later
     losses = []
     num_examples_seen = 0
