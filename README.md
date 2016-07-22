@@ -163,4 +163,25 @@ Training the model took us alot of time due to the high number of sentences in H
     
         sentence_str = [index_to_word[x] for x in new_sentence[1:-1]]
         return sentence_str
+        
+#### comment: Calculating the similarity between the real sentences and the predicted sentences. The measure that we used for the calculation is Cross-Entroty-Loss. for each word in a sentence, it measures how far our prediction was from the real word. For example, if we have a sentence - "We are eating dinner with some friends". the model generate a vector (in the size of the vocabulary) with probabliltes for each word. let's say the the word "with" has a probabilty of 0.8 to be the next word. so the distance of the prediction is Yn*Log(On). Yn equals 1, On eqauls 0.8. We do this calculation for every word in the sentence ans sum it up. finally, we divide it by the number of words in the sentence to get avarage loss for each word. 
+We calculated the loss for the whole database, and also calculated the loss for 100 sentences that we picked randomally. 
+
+    def calculateSimilarity():
+        totalLoss =0
+        for i in range(len(y_train)): #iterate over each sentence and calculate the loss
+            currSentence_Loss = model.calculate_loss_sentence(X_train[i],y_train[i])
+            totalLoss = totalLoss+currSentence_Loss
+            #print("Sentence number %d and loss for the sentence is %f." % (i, currSentence_Loss))
+        return totalLoss/len(y_train)
+    
+    def calculateSimilarity_Random(amount):
+        from random import randint
+        totalLoss=0
+        for i in range(amount): #pick #amount random sentences
+            randomNum = randint(0,len(y_train)) #pick a random sentence from the text
+            currSentence_Loss = model.calculate_loss_sentence(X_train[randomNum],y_train[randomNum])
+            totalLoss=totalLoss+currSentence_Loss
+        return totalLoss / amount
+        
 
