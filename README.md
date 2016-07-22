@@ -133,6 +133,18 @@ Training the model took us alot of time due to the high number of sentences in H
 
 
 
-#### comment: Loadin the model and generating sentences. 
+#### comment: Loadin the model. This function gets the path to the model file, and loads the model parameters to the memory. after the loading we can use this model to predict sentences.  
+
+    def load_model_parameters_theano(path, model):
+        npzfile = np.load(path)
+        U, V, W = npzfile["U"], npzfile["V"], npzfile["W"]
+        model.hidden_dim = U.shape[0]
+        model.word_dim = U.shape[1]
+        model.U.set_value(U)
+        model.V.set_value(V)
+        model.W.set_value(W)
+        print ("Loaded model parameters from %s. hidden_dim=%d word_dim=%d" % (path, U.shape[0], U.shape[1]))
+        
+        
 
 
