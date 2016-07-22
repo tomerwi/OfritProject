@@ -29,17 +29,17 @@ Leraning rate - regulzation parameter - mainly used to prevent overfitting.
 Nepoch - number of iterations in the training phaze. 
 Hidden_Dim - the memory of the network - making it bigger allows us to learn complex patterns in the data
 
-vocabulary_size = 7000
-
-unknown_token = "UNKNOWN_TOKEN"
-
-sentence_start_token = "SENTENCE_START"
-
-sentence_end_token = "SENTENCE_END"
-
-_HIDDEN_DIM = 80
-_LEARNING_RATE = 0.005
-_NEPOCH = 100
+    vocabulary_size = 7000
+    
+    unknown_token = "UNKNOWN_TOKEN"
+    
+    sentence_start_token = "SENTENCE_START"
+    
+    sentence_end_token = "SENTENCE_END"
+    
+    _HIDDEN_DIM = 80
+    _LEARNING_RATE = 0.005
+    _NEPOCH = 100
 
 
 
