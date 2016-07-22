@@ -4,14 +4,14 @@
 
 ### Collection of data sequences
 
-The collection of data sequences that we choדק is Harry Potter And The Chamber Of Secrets that was wrriten by by J. K. Rowling. This is the second book in Harry Potter's series
+The collection of data sequences that we chose is Harry Potter And The Chamber Of Secrets that was written by by J. K. Rowling. This is the second book in Harry Potter's series
 
 2.
 
 ### Description of data
 
-This was actually not our first data that we tried to learn. We started this project working on a collection of speeches of Binyamin Netanyahu. We gathered and combined a lot of speeches, but when we tried to learn and train the model, we had difficulties to create sentences from it. We think the reason for that was because the collection of the speeches were no big enough. 
-We then chose Harry potter topic because that data is very big and has variety in its content (number of words, number of unique words etc). We think that the model training can be much more efficent in thie context. 
+This was actually not our first data that we tried to learn. We started this project working on a collection of speeches of Binyamin Netanyahu. We gathered and combined a lot of speeches, but when we tried to learn and train the model, we had difficulties to create reasonable sentences from it. We think the reason for that was because the collection of the speeches were no big enough. 
+We then chose Harry potter topic because that data is very big and has variety in its content (number of words, number of unique words etc). We think that the model training can be much more efficent in this context. 
 
 The main challenge in dealing with this topic is the investigation of the words which are not "real" words. Harry Potter's books contain many phrases and words that describe magic, which can be challenging to learn.
 In addition, in the past we never studied this kind of sequences analysys so this is also chanllenging for us. 
@@ -24,9 +24,10 @@ Data Analysis:
 
 ### Preprocessing
 
-#### comment: Inilize variables. Replace all the words which are not in our vocabulary with "Unknown_Token". Append Setence_Start ans Sentence_End to the sentence - it is used becuase we want to "teach" the model which words open sentences and which one end them.
+#### comment: Inilize variables. Replace all the words which are not in our vocabulary with "Unknown_Token". Append Setence_Start and Sentence_End to the sentence - it is used becuase we want to "teach" the model which words open sentences and which one end them.
 Leraning rate - regulzation parameter - mainly used to prevent overfitting.
 Nepoch - number of iterations in the training phaze. 
+Hidden_Dim - the memory of the network - making it bigger allows us to learn complex patterns in the data
 
 vocabulary_size = 7000
 
@@ -36,7 +37,7 @@ sentence_start_token = "SENTENCE_START"
 
 sentence_end_token = "SENTENCE_END"
 
-_HIDDEN_DIM = 50
+_HIDDEN_DIM = 80
 _LEARNING_RATE = 0.005
 _NEPOCH = 100
 
@@ -44,7 +45,8 @@ _NEPOCH = 100
 
 
 #### comment: Read the data to the memory and tokenize into sentences. We used NLTK Python library for the tokenizing
-with open('data/harrypotter.txt', 'rb') as f:
+
+    with open('data/harrypotter.txt', 'rb') as f:
 
     reader = f.readlines()
 
@@ -57,7 +59,8 @@ with open('data/harrypotter.txt', 'rb') as f:
 
 
 #### comment: Tokenize words in each sentence (for example - Please come here! ->> {please} {come} {here} {!}. 
-tokenized_sentences = [nltk.word_tokenize(sent) for sent in sentences]
+
+    tokenized_sentences = [nltk.word_tokenize(sent) for sent in sentences]
 
 
 
