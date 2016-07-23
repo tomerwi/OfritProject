@@ -17,7 +17,7 @@ The main challenge in dealing with this topic is the investigation of the words 
 In addition, in the past we never studied this kind of sequences analysys so this is also chanllenging for us. 
 
 Data Analysis:
-16238 sentences.
+12867 sentences.
 7605 unique words
 
 3.
@@ -29,7 +29,9 @@ Leraning rate - regulzation parameter - mainly used to prevent overfitting.
 Nepoch - number of iterations in the training phaze. 
 Hidden_Dim - the memory of the network - making it bigger allows us to learn complex patterns in the data
 
-    vocabulary_size = 7000
+
+
+    vocabulary_size = 6500
     
     unknown_token = "UNKNOWN_TOKEN"
     
@@ -44,7 +46,7 @@ Hidden_Dim - the memory of the network - making it bigger allows us to learn com
 
 
 
-#### comment: Read the data to the memory and tokenize into sentences. We used NLTK Python library for the tokenizing
+#### comment: Read the data to the memory and tokenize into sentences. We used NLTK Python library for the tokenizing. When we first tried to train the model, we saw that it predicts the word "SENTENCE_END" at the beginning of the sentence. After investigation We found out that the reason for that was because the text had a lot of empty lines, which has a bad influence on the predictions. Therfore, we removed all the empty lines from the text. (We did it outside the code)
 
     with open('data/harrypotter.txt', 'rb') as f:
 
