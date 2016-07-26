@@ -196,7 +196,7 @@ We calculated the loss for the whole database, and also calculated the loss for 
         return self.calculate_total_loss_sentence(X,Y) / float(num_words)        
         
 
-#### comment: Here are the results of loading the model and calculating the loss over 50 sentences. 
+#### comment: Here are the results of loading the model and calculating the loss over 50 sentences. Sentence Number, Sentence text, and Loss for the sentence. The last line is the avarage loss for all of the random sentences.  
 
     Sentence Number 11777:[  `` not the greatest sorcerer in the world , '' said harry , breathing fast ] Loss: 3.744226
     Sentence Number 127:[  husband ] Loss: 3.192912
