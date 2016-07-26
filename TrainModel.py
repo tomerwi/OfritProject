@@ -9,8 +9,8 @@ from datetime import datetime
 from utils import *
 from RNNClass import RNNTheano
 
-_VOCABULARY_SIZE = 7000
-_HIDDEN_DIM = 50
+_VOCABULARY_SIZE = 6500
+_HIDDEN_DIM = 80
 _LEARNING_RATE = 0.005
 _NEPOCH = 100
 
@@ -48,8 +48,8 @@ sentence_start_token = "SENTENCE_START"
 sentence_end_token = "SENTENCE_END"
 
 # Read the data and append SENTENCE_START and SENTENCE_END tokens
-print ("Reading CSV file...")
-with open('data/harrypotter.txt', 'rb') as f:
+print ("Reading Harry Potter file...")
+with open('data/harryPotter_NoEmptyLines.txt', 'rb') as f:
 
     reader = f.readlines()
 
@@ -88,6 +88,11 @@ y_train = np.asarray([[word_to_index[w] for w in sent[1:]] for sent in tokenized
 
 # Init the model with random values for U, S, V
 model = RNNTheano(vocabulary_size, hidden_dim=_HIDDEN_DIM)
+
+
+
+
+
 
 #Start Training the model
 train_with_sgd(model, X_train, y_train, nepoch=_NEPOCH, learning_rate=_LEARNING_RATE)

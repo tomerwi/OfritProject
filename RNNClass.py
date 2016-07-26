@@ -69,6 +69,13 @@ class RNNTheano:
         num_words = np.sum([len(y) for y in Y])
         return self.calculate_total_loss(X, Y) / float(num_words)
 
+    def calculate_total_loss_sentence(self, X, Y):
+        return self.ce_error(X, Y)
+
+    def calculate_loss_sentence(self,X,Y):
+        num_words = len(Y)
+        return self.calculate_total_loss_sentence(X,Y) / float(num_words)
+
 
 def gradient_check_theano(model, x, y, h=0.001, error_threshold=0.01):
     # Overwrite the bptt attribute. We need to backpropagate all the way to get the correct gradient

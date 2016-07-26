@@ -5,8 +5,8 @@ import nltk
 from utils import *
 from RNNClass import RNNTheano
 
-_VOCABULARY_SIZE = 7000
-_HIDDEN_DIM = 50
+_VOCABULARY_SIZE = 6500
+_HIDDEN_DIM = 80
 _LEARNING_RATE = 0.005
 _NEPOCH = 100
 
@@ -17,7 +17,7 @@ sentence_end_token = "SENTENCE_END"
 
 # Read the data and append SENTENCE_START and SENTENCE_END tokens
 print ("Reading CSV file...")
-with open('data/harrypotter.txt', 'rb') as f:
+with open('data/harryPotter_NoEmptyLines.txt', 'rb') as f:
 
     reader = f.readlines()
 
@@ -61,17 +61,19 @@ y_train = np.asarray([[word_to_index[w] for w in sent[1:]] for sent in tokenized
 
 
 
-# Init the model with random values
-model = RNNTheano(vocabulary_size, hidden_dim=50)
 
-load_model_parameters_theano('./data/harryPotterModel.npz', model)
+model = RNNTheano(vocabulary_size, hidden_dim=80)
+
+load_model_parameters_theano('./data/HarryPotterModel_Final.npz', model)
+
+
 
 
 def generate_sentence(model):
     # We start the sentence with the start token
     new_sentence = [word_to_index[sentence_start_token]]
     # Repeat until we get an end token
-    while not new_sentence[-1] == word_to_index[sentence_end_token]:
+    while not new_sentence[-1] == word_to_index[sentence_end_token] or len(new_sentence)<7:
         next_word_probs = model.forward_propagation(new_sentence)
         sampled_word = word_to_index[unknown_token]
         # We don't want to sample unknown words
@@ -84,19 +86,58 @@ def generate_sentence(model):
     return sentence_str
 
 
-num_sentences = 10000
-senten_min_length = 7
 
 
 
-for i in range(num_sentences):
-    sent = []
-    # We want long sentences, not sentences with one or two words
 
-    sent = generate_sentence(model)
+def createSentences(numOfSentences):
+    for i in range(numOfSentences):
+        sent = []
+        sent = generate_sentence(model)
+        print " ".join(sent)
 
-    print " ".join(sent)
 
+
+#calculates the avarage loss over all sentences in the data
+def calculateSimilarity():
+    totalLoss =0
+    for i in range(len(y_train)): #iterate over each sentence and calculate the loss
+        currSentence_Loss = model.calculate_loss_sentence(X_train[i],y_train[i])
+        totalLoss = totalLoss+currSentence_Loss
+        #print("Sentence number %d and loss for the sentence is %f." % (i, currSentence_Loss))
+    print ("Average loss for all sentences in the text: %f" %(totalLoss/len(y_train)))
+
+def getSentenceFromIndices(sentence):
+    sentence_str = [index_to_word[x] for x in sentence[1:-1]]
+    ans=""
+    for i in range(len(sentence_str)):
+        ans = ans+ " " + sentence_str[i]
+    return ans
+
+
+def calculateSimilarity_Random(amount):
+    from random import randint
+    totalLoss=0
+    for i in range(amount): #pick #amount random sentences
+        randomNum = randint(0,len(y_train)) #pick a random sentence from the text
+        currSentence_Loss = model.calculate_loss_sentence(X_train[randomNum],y_train[randomNum])
+        sentence = getSentenceFromIndices(X_train[randomNum])
+        print("Sentence Number %d:[ %s ] Loss: %f" % (randomNum, sentence, currSentence_Loss))
+        totalLoss=totalLoss+currSentence_Loss
+
+    print("Average loss for the random sentences is: %f" % (totalLoss / amount))
+
+#prediction = model.predict(X_train[3])
+#sentence_str = [index_to_word[x] for x in prediction[1:-1]]
+
+
+
+calculateSimilarity()
+calculateSimilarity_Random(50) #pick 50 random sentences and calculate the loss
+
+
+num_sentences = 50
+createSentences(num_sentences)
 
 
 
