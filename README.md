@@ -255,4 +255,45 @@ We calculated the loss for the whole database, and also calculated the loss for 
 #### comment: We also calculated the loss over all the dataset using the functions mentioned above. 
 
     Average loss for all sentences in the text: 4.616136
+    
+    
+#### comment: Conclusions: Let's first print some sentences from our model:
 
+    she was aloud . SENTENCE_END at
+    he reached . SENTENCE_END through his arm .
+    bag . SENTENCE_END door got mention - ''
+    * unpleasantness shut SENTENCE_END .
+    we understand ? SENTENCE_END over it was an
+    * whassamatter $ defeat me .
+    the walls . SENTENCE_END have
+    `` ' too ! ''
+    `` it ? '' SENTENCE_END uncle his boasting
+    he 'd was a rule-breaker remaining blurred out again , ron considerable
+    but now them spells SENTENCE_END , potter ? ''
+    SENTENCE_END of the nearest room .
+    kept i 'm me .
+    and SENTENCE_END lord him , '' ron
+    *59* SENTENCE_END sister to dumbledore anymore .
+    . '' SENTENCE_END percy fearsome nervously for
+    said lockhart had nastily together .
+    harry potter . SENTENCE_END at his forehead .
+    he knew harry suddenly off his fist .
+    the monster . SENTENCE_END at school .
+    . SENTENCE_END SENTENCE_END kill to step
+    they had SENTENCE_END furious and hermione out over .
+    and said he had shouted .
+    `` did it . ''
+    - '' SENTENCE_END harry has to wake .
+    said aragog year . SENTENCE_END at quite wall .
+    . '' SENTENCE_END mr. SENTENCE_END
+    magnified . SENTENCE_END his powers .
+    `` then sounds smell it ... ...
+    no revive lord froze .
+    said lockhart , harry had shouted .
+    dormitory ? '' SENTENCE_END SENTENCE_END save darker .
+    the elf swung SENTENCE_END to him a
+    and then he saw into
+
+
+#### comment: As we can see from the results, some of the sentences have meaningfull connection between the words. Furthermore, the model has learned punctuation. for example - it puts "." at the end of the sentence. Another thing that we can see from the results is that the model predicts too often the word "Sentence_End". We think that the reason for this is becuase "Sentence_End" appears in every sentences in the text (We add it to the end of each sentence in the preprocessing phase), which causes the word to have large probabilty as the next word prediction. 
+By looking at the avarage loss over all sentences - it is much better from a model that chooses the next word randomally, for example. However, It is not perfect. We trained the model over more then 24 hours. Maybe if we had a stronger computer and more time, we could better learn the text and produce even more concise sentences. 
