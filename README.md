@@ -167,7 +167,7 @@ Training the model took us alot of time due to the high number of sentences in H
         return sentence_str
         
 #### comment: Calculating the similarity between the real sentences and the predicted sentences. The measure that we used for the calculation is Cross-Entroty-Loss. for each word in a sentence, it measures how far our prediction was from the real word. For example, if we have a sentence - "We are eating dinner with some friends" and we want to predict the word which comes after "dinner". the model generate a vector (in the size of the vocabulary) with probabliltes for each word. let's say the the word "with" has a probabilty of 0.8 to be the next word. so the distance of the prediction is Yn*Log(On). Yn equals 1, On eqauls 0.8. We do this calculation for every word in the sentence and sum it up. finally, we divide it by the number of words in the sentence to get avarage loss for each word. 
-We calculated the loss for the whole database, and also calculated the loss for 100 sentences that we picked randomally. 
+We calculated the loss for the whole database, and also calculated the loss for 50 sentences that we picked randomally (feel free to change the number of random sentences and run it again). 
 
     def calculateSimilarity():
         totalLoss =0
@@ -175,7 +175,7 @@ We calculated the loss for the whole database, and also calculated the loss for 
             currSentence_Loss = model.calculate_loss_sentence(X_train[i],y_train[i])
             totalLoss = totalLoss+currSentence_Loss
             #print("Sentence number %d and loss for the sentence is %f." % (i, currSentence_Loss))
-        return totalLoss/len(y_train)
+        print ("Average loss for all sentences in the test: %f" %(totalLoss/len(y_train)))
     
     def calculateSimilarity_Random(amount):
         from random import randint
@@ -183,8 +183,10 @@ We calculated the loss for the whole database, and also calculated the loss for 
         for i in range(amount): #pick #amount random sentences
             randomNum = randint(0,len(y_train)) #pick a random sentence from the text
             currSentence_Loss = model.calculate_loss_sentence(X_train[randomNum],y_train[randomNum])
+            sentence = getSentenceFromIndices(X_train[randomNum])
+            print("Sentence Number %d:[ %s ] Loss: %f" % (randomNum, sentence, currSentence_Loss))
             totalLoss=totalLoss+currSentence_Loss
-        return totalLoss / amount
+        print("Average loss for the random sentences is: %f" % (totalLoss / amount))
         
     def calculate_total_loss_sentence(self, X, Y):
         return self.ce_error(X, Y)
@@ -193,4 +195,59 @@ We calculated the loss for the whole database, and also calculated the loss for 
         num_words = len(Y)
         return self.calculate_total_loss_sentence(X,Y) / float(num_words)        
         
+
+#### comment: Here are the results of loading the model and calculating the loss over 50 sentences. 
+
+    Sentence Number 11777:[  `` not the greatest sorcerer in the world , '' said harry , breathing fast ] Loss: 3.744226
+    Sentence Number 127:[  husband ] Loss: 3.192912
+    Sentence Number 10090:[  fang bounded happily out of the house behind them , dashed to ] Loss: 4.910388
+    Sentence Number 6009:[  `` homework - compose a poem about my defeat of the ] Loss: 6.344539
+    Sentence Number 10163:[  fang ! ] Loss: 2.253425
+    Sentence Number 9933:[  hands - ] Loss: 2.938197
+    Sentence Number 3345:[  hufflepuff boy harry knew by sight but had never spoken to ] Loss: 7.334905
+    Sentence Number 8463:[  `` it 's okay , hermione , '' said harry quickly ] Loss: 2.973303
+    Sentence Number 9992:[  harry and ron UNKNOWN_TOKEN ] Loss: 3.566368
+    Sentence Number 7013:[  too , read the sign with interest ] Loss: 5.727168
+    Sentence Number 10559:[  `` i have good news , '' she said , and the great hall , instead of ] Loss: 4.432502
+    Sentence Number 6117:[  arms out of her head ] Loss: 3.645669
+    Sentence Number 6955:[  seconds , harry straightened up , took aim , and UNKNOWN_TOKEN it into the air ; ] Loss: 5.002339
+    Sentence Number 10030:[  `` i flatter myself i know a touch more about hagrid 's arrest than ] Loss: 6.008347
+    Sentence Number 79:[  harry felt ] Loss: 1.778701
+    Sentence Number 6504:[  it burned harry 's mouth and throat as ] Loss: 5.146540
+    Sentence Number 7271:[  `` come on , '' said rods voice in his ear ] Loss: 3.624885
+    Sentence Number 7843:[  through ... ] Loss: 2.930481
+    Sentence Number 821:[  ] Loss: 1.253522
+    Sentence Number 4833:[  the UNKNOWN_TOKEN dropped with every ] Loss: 5.330466
+    Sentence Number 668:[  he jumped the last six steps , landing catlike on ] Loss: 6.179426
+    Sentence Number 2646:[  he moaned as the ceiling sagged , but suddenly ] Loss: 5.601741
+    Sentence Number 8497:[  asked harry , pointing to something gold sticking ] Loss: 5.371894
+    Sentence Number 2282:[  `` yeh should 've ignored him , arthur , '' said hagrid , almost lifting mr. ] Loss: 5.921703
+    Sentence Number 10162:[  `` it 's already ] Loss: 4.054174
+    Sentence Number 12739:[  `` you shall go now , '' he said fiercely , pointing down at mr. malfoy ] Loss: 3.691131
+    Sentence Number 11275:[  `` you can go first , '' ron snarled ] Loss: 3.837430
+    Sentence Number 8066:[  `` hang on , '' said harry as ron and hermione reached for their glasses ] Loss: 3.747056
+    Sentence Number 2889:[  i will be writing ] Loss: 4.065180
+    Sentence Number 6539:[  out ] Loss: 4.118778
+    Sentence Number 8512:[  ] Loss: 3.547355
+    Sentence Number 6462:[  poking out of the end of his robes was what looked like a thick , ] Loss: 4.621703
+    Sentence Number 5322:[  had been led there by a bodiless voice no one but he could hear ] Loss: 6.449992
+    Sentence Number 11607:[  it was very amusing ] Loss: 3.081833
+    Sentence Number 6496:[  as he swung himself onto the bed , his arm flapped pointlessly ] Loss: 5.068804
+    Sentence Number 9772:[  croaked hagrid ] Loss: 3.708964
+    Sentence Number 9841:[  `` growled hagrid ] Loss: 3.545044
+    Sentence Number 287:[  staring absent-mindedly into the hedge - and the hedge was staring back ] Loss: 5.198655
+    Sentence Number 2514:[  turrets of snowy cloud , in a car full of hot , bright sunlight , with a ] Loss: 6.627636
+    Sentence Number 11994:[  almost knocking him out ] Loss: 4.915882
+    Sentence Number 496:[  almost at once , harry wished he had n't spoken ] Loss: 4.807133
+    Sentence Number 6340:[  `` fred , george , you heard harry -leave him ] Loss: 5.839961
+    Sentence Number 8208:[  as they hurried nearer ] Loss: 3.698467
+    Sentence Number 12024:[  sideways and fell , twitching , to the floor ] Loss: 5.438543
+    Sentence Number 12271:[  g UNKNOWN_TOKEN a p t e ] Loss: 6.611085
+    Sentence Number 6818:[  arm ? ] Loss: 2.578243
+    Sentence Number 3887:[  harry sank ] Loss: 4.518908
+    Sentence Number 11342:[  `` blimey , '' said ron weakly ] Loss: 3.389589
+    Sentence Number 5078:[  kill ] Loss: 3.163991
+    Sentence Number 97:[  homework done ] Loss: 5.116531
+    
+    Average loss for the random sentences is: 4.413114
 
