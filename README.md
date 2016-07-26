@@ -250,4 +250,9 @@ We calculated the loss for the whole database, and also calculated the loss for 
     Sentence Number 97:[  homework done ] Loss: 5.116531
     
     Average loss for the random sentences is: 4.413114
+    
+    
+#### comment: We also calculated the loss over all the dataset using the functions mentioned above. 
+
+    Average loss for all sentences in the text: 4.616136
 
