@@ -101,6 +101,11 @@ for i, sent in enumerate(tokenized_sentences):
 
     model = RNNTheano(vocabulary_size, hidden_dim=_HIDDEN_DIM)
 
+
+4.
+
+### Training the model
+
 #### comment: Training the model. We send the training sentences (X_train and Y_train) for theano. Moreover, we set the Epoch number - which is the number of iteration over all sentences, and also set the learning rate for the SGD. 
 After every 5 iteration, we calculate the loss and we check if it decreases. This part (calculating the loss) is not necessary, its just an indication for us. 
 Training the model took us alot of time due to the high number of sentences in Harry Potter's book. 
@@ -135,6 +140,11 @@ Training the model took us alot of time due to the high number of sentences in H
 
 
 
+5.
+
+### Loading the model
+
+
 #### comment: Loadin the model. This function gets the path to the model file, and loads the model parameters to the memory. after the loading we can use this model to predict sentences.  
 
     def load_model_parameters_theano(path, model):
@@ -165,6 +175,12 @@ Training the model took us alot of time due to the high number of sentences in H
     
         sentence_str = [index_to_word[x] for x in new_sentence[1:-1]]
         return sentence_str
+
+
+6.
+
+### Calculating Similarity
+
         
 #### comment: Calculating the similarity between the real sentences and the predicted sentences. The measure that we used for the calculation is Cross-Entroty-Loss. for each word in a sentence, it measures how far our prediction was from the real word. For example, if we have a sentence - "We are eating dinner with some friends" and we want to predict the word which comes after "dinner". the model generate a vector (in the size of the vocabulary) with probabliltes for each word. let's say the the word "with" has a probabilty of 0.8 to be the next word. so the distance of the prediction is Yn*Log(On). Yn equals 1, On eqauls 0.8. We do this calculation for every word in the sentence and sum it up. finally, we divide it by the number of words in the sentence to get avarage loss for each word. 
 We calculated the loss for the whole database, and also calculated the loss for 50 sentences that we picked randomally (feel free to change the number of random sentences and run it again). 
@@ -195,6 +211,8 @@ We calculated the loss for the whole database, and also calculated the loss for 
         num_words = len(Y)
         return self.calculate_total_loss_sentence(X,Y) / float(num_words)        
         
+
+
 
 #### comment: Here are the results of loading the model and calculating the loss over 50 sentences. Structure: Sentence Number, Sentence text, and Loss for the sentence. The last line is the avarage loss for all of the random sentences.  
 
@@ -256,7 +274,13 @@ We calculated the loss for the whole database, and also calculated the loss for 
 
     Average loss for all sentences in the text: 4.616136
     
-    
+
+
+7.
+
+### Conclustions
+
+
 #### comment: Conclusions: Let's first print some sentences from our model:
 
     she was aloud . SENTENCE_END at
