@@ -278,7 +278,7 @@ We calculated the loss for the whole database, and also calculated the loss for 
 
 7.
 
-### Conclustions
+### Conclusions
 
 
 #### comment: Conclusions: Let's first print some sentences from our model:
