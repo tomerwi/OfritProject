@@ -24,7 +24,7 @@ Data Analysis:
 
 ### Preprocessing
 
-#### comment:Inilize variables. Replace all the words which are not in our vocabulary with "Unknown_Token". Append Setence_Start and Sentence_End to the sentence - it is used becuase we want to "teach" the model which words open sentences and which one end them.
+#### Inilize variables. Replace all the words which are not in our vocabulary with "Unknown_Token". Append Setence_Start and Sentence_End to the sentence - it is used becuase we want to "teach" the model which words open sentences and which one end them.
 Leraning rate - regulzation parameter - mainly used to prevent overfitting.
 Nepoch - number of iterations in the training phaze. 
 Hidden_Dim - the memory of the network - making it bigger allows us to learn complex patterns in the data
@@ -46,7 +46,7 @@ Hidden_Dim - the memory of the network - making it bigger allows us to learn com
 
 
 
-#### comment: Read the data to the memory and tokenize into sentences. We used NLTK Python library for the tokenizing. When we first tried to train the model, we saw that it predicts the word "SENTENCE_END" at the beginning of the sentence. After investigation We found out that the reason for that was because the text had a lot of empty lines, which has a bad influence on the predictions. Therfore, we removed all the empty lines from the text. (We did it outside the code)
+####Read the data to the memory and tokenize into sentences. We used NLTK Python library for the tokenizing. When we first tried to train the model, we saw that it predicts the word "SENTENCE_END" at the beginning of the sentence. After investigation We found out that the reason for that was because the text had a lot of empty lines, which has a bad influence on the predictions. Therfore, we removed all the empty lines from the text. (We did it outside the code)
 
     with open('data/harrypotter.txt', 'rb') as f:
 
@@ -60,7 +60,7 @@ Hidden_Dim - the memory of the network - making it bigger allows us to learn com
     sentences = ["%s %s %s" % (sentence_start_token, x, sentence_end_token) for x in sentences]
 
 
-#### comment: Tokenize words in each sentence (for example - Please come here! ->> {please} {come} {here} {!}. 
+#### Tokenize words in each sentence (for example - Please come here! ->> {please} {come} {here} {!}. 
 
     tokenized_sentences = [nltk.word_tokenize(sent) for sent in sentences]
 
