@@ -4,6 +4,8 @@ import nltk
 
 from utils import *
 from RNNClass import RNNTheano
+from nltk.corpus import wordnet #for calculating similarity
+import distance #also for calculating similarity
 
 _VOCABULARY_SIZE = 6500
 _HIDDEN_DIM = 80
@@ -89,12 +91,57 @@ def generate_sentence(model):
 
 
 
+#computes jaccard and levinstein distance using python pacages "Distance"
+def calculateSimilarity_WithDistancePackage(createdSentence): #createdSentence is list of words
 
+    levinDist = {}
+    jaccardDist = {}
+    bestValues = {}
+    for i in range(len(X_train)):
+        currSentence = X_train[i]
+        sentence_str = [index_to_word[x] for x in currSentence[1:-1]]  # sentence_str is list of words
+        #Levinstein Distance
+        dist = distance.levenshtein(createdSentence, sentence_str)
+        dist2 = distance.jaccard(createdSentence,sentence_str)
+        #print(dist)
+        if (dist>0):
+            #print ("Distance Levinshtein: %f" % (dist))
+            levinDist[i]=dist
+        jaccardDist[i]=dist2
+        #print ("Jaccard Distance: %f" % (dist2))
+
+    #take best value
+    levinMin = min(levinDist.itervalues())
+    jaccardMin = min(jaccardDist.itervalues())
+
+    print ("Best Distance Levinshtein: %f" % (levinMin))
+    print ("Best Distance Jaccard: %f" % (jaccardMin))
+    bestValues["Jaccard"]=jaccardMin
+    bestValues["Levin"]=levinMin
+    return bestValues
+
+
+
+
+
+
+
+#generate sentences and calculating the jaccard and levinstein similarity
 def createSentences(numOfSentences):
+    sumLevin=0
+    sumJaccard=0
     for i in range(numOfSentences):
         sent = []
-        sent = generate_sentence(model)
+        sent = generate_sentence(model) # sent is list of words
         print " ".join(sent)
+        distances = calculateSimilarity_WithDistancePackage(sent)
+        sumLevin=sumLevin+distances["Levin"]
+        sumJaccard=sumJaccard+distances["Jaccard"]
+
+    print ("Avarage of minimum distances of jaccard: %f" % (sumJaccard/numOfSentences))
+    print ("Avarage of minimum distances of levinsterin: %f" % (sumLevin / numOfSentences))
+
+
 
 
 
@@ -108,7 +155,7 @@ def calculateSimilarity():
     print ("Average loss for all sentences in the text: %f" %(totalLoss/len(y_train)))
 
 def getSentenceFromIndices(sentence):
-    sentence_str = [index_to_word[x] for x in sentence[1:-1]]
+    sentence_str = [index_to_word[x] for x in sentence[1:-1]] #sentence_str is list of words
     ans=""
     for i in range(len(sentence_str)):
         ans = ans+ " " + sentence_str[i]
