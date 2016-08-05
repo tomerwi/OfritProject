@@ -433,8 +433,10 @@ We calculated the loss for the whole database, and also calculated the loss for 
     twice when it half on `` sent all ... ... ah will be ill ! ''
     Best Distance Levinshtein: 13.000000
     Best Distance Jaccard: 0.761905
+    
+    
     Avarage of minimum distances of jaccard: 0.693593
-    Avarage of minimum distances of levinsterin: 5.000000
+    Avarage of minimum distances of levinstein: 5.000000
 
 
 
