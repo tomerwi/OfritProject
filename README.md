@@ -66,7 +66,7 @@ Hidden_Dim - the memory of the network - making it bigger allows us to learn com
 
 
 
-#### comment: Count the word freqencies
+#### Count the word freqencies
 
     word_freq = nltk.FreqDist(itertools.chain(*tokenized_sentences))
 
@@ -74,7 +74,7 @@ Hidden_Dim - the memory of the network - making it bigger allows us to learn com
 
 
 
-#### comment: Get the most common words (vocabulary size) and build index_to_word and word_to_index vectors. The input for the RNN are vectors, not Strings, so we create mapping between words and indices. 
+####  Get the most common words (vocabulary size) and build index_to_word and word_to_index vectors. The input for the RNN are vectors, not Strings, so we create mapping between words and indices. 
 
     vocab = word_freq.most_common(vocabulary_size - 1)
     
@@ -85,18 +85,18 @@ Hidden_Dim - the memory of the network - making it bigger allows us to learn com
 
 
 
-#### comment: Replace all words not in our vocabulary with the unknown token
+####  Replace all words not in our vocabulary with the unknown token
 for i, sent in enumerate(tokenized_sentences):
 
     tokenized_sentences[i] = [w if w in word_to_index else unknown_token for w in sent]
 
-#### comment: Create the training data. X is the sentences, Y is the sentences shifted right by one position. In this structure the model knows which word comes after each word. for example - Y[3] is the next word for X[3] in the sentence. 
+####  Create the training data. X is the sentences, Y is the sentences shifted right by one position. In this structure the model knows which word comes after each word. for example - Y[3] is the next word for X[3] in the sentence. 
 
     X_train = np.asarray([[word_to_index[w] for w in sent[:-1]] for sent in tokenized_sentences])
     
     y_train = np.asarray([[word_to_index[w] for w in sent[1:]] for sent in tokenized_sentences])
 
-#### comment: Init the model with random values for U, S, V. This function is attached to the project code. We used Theano for building the model. Theano is Python library that let you to define, optimize and evaluate mathematical expression, especially ones with multi-dimensional arrays. Because RNN are easily expressed with multi-dimensioanl arrays, Theano is a great fit. 
+####  Init the model with random values for U, S, V. This function is attached to the project code. We used Theano for building the model. Theano is Python library that let you to define, optimize and evaluate mathematical expression, especially ones with multi-dimensional arrays. Because RNN are easily expressed with multi-dimensioanl arrays, Theano is a great fit. 
 
 
     model = RNNTheano(vocabulary_size, hidden_dim=_HIDDEN_DIM)
@@ -106,7 +106,7 @@ for i, sent in enumerate(tokenized_sentences):
 
 ### Training the model
 
-#### comment: Training the model. We send the training sentences (X_train and Y_train) for theano. Moreover, we set the Epoch number - which is the number of iteration over all sentences, and also set the learning rate for the SGD. 
+####  Training the model. We send the training sentences (X_train and Y_train) for theano. Moreover, we set the Epoch number - which is the number of iteration over all sentences, and also set the learning rate for the SGD. 
 After every 5 iteration, we calculate the loss and we check if it decreases. This part (calculating the loss) is not necessary, its just an indication for us. 
 Training the model took us alot of time due to the high number of sentences in Harry Potter's book. 
 
@@ -145,7 +145,7 @@ Training the model took us alot of time due to the high number of sentences in H
 ### Loading the model
 
 
-#### comment: Loadin the model. This function gets the path to the model file, and loads the model parameters to the memory. after the loading we can use this model to predict sentences.  
+####  Loadin the model. This function gets the path to the model file, and loads the model parameters to the memory. after the loading we can use this model to predict sentences.  
 
     def load_model_parameters_theano(path, model):
         npzfile = np.load(path)
@@ -158,7 +158,7 @@ Training the model took us alot of time due to the high number of sentences in H
         print ("Loaded model parameters from %s. hidden_dim=%d word_dim=%d" % (path, U.shape[0], U.shape[1]))
         
         
-#### comment: Generating sentences from the model. we generate only sentences that is bigger then 7 words. Sentece is represented by the model as vector of numbers so we need to convert it to a string using the index_to_word dictionary. 
+#### Generating sentences from the model. we generate only sentences that is bigger then 7 words. Sentece is represented by the model as vector of numbers so we need to convert it to a string using the index_to_word dictionary. 
 
     def generate_sentence(model):
         # We start the sentence with the start token
@@ -181,10 +181,10 @@ Training the model took us alot of time due to the high number of sentences in H
 
 ### Calculating Similarity
 
-#### We calculated the similarity in 3 different metrices, each one gives another point of view to the model predictions. 
+#### We calculated the similarity in 3 different metrics, each one gives another point of view to the model predictions. 
 
         
-#### comment: First Metric: Cross Entory Loss. for each word in a sentence, it measures how far our prediction was from the real word. For example, if we have a sentence - "We are eating dinner with some friends" and we want to predict the word which comes after "dinner". the model generate a vector (in the size of the vocabulary) with probabliltes for each word. let's say the the word "with" has a probabilty of 0.8 to be the next word. so the distance of the prediction is Yn*Log(On). Yn equals 1, On eqauls 0.8. We do this calculation for every word in the sentence and sum it up. finally, we divide it by the number of words in the sentence to get avarage loss for each word. 
+####  First Metric: Cross Entory Loss. for each word in a sentence, it measures how far our prediction was from the real word. For example, if we have a sentence - "We are eating dinner with some friends" and we want to predict the word which comes after "dinner". the model generate a vector (in the size of the vocabulary) with probabliltes for each word. let's say the the word "with" has a probabilty of 0.8 to be the next word. so the distance of the prediction is Yn*Log(On). Yn equals 1, On eqauls 0.8. We do this calculation for every word in the sentence and sum it up. finally, we divide it by the number of words in the sentence to get avarage loss for each word. 
 We calculated the loss for the whole database, and also calculated the loss for 50 sentences that we picked randomally (feel free to change the number of random sentences and run it again). 
 
     def calculateSimilarity():
@@ -216,7 +216,7 @@ We calculated the loss for the whole database, and also calculated the loss for 
 
 
 
-#### comment: Here are the results of loading the model and calculating the loss over 50 sentences. Structure: Sentence Number, Sentence text, and Loss for the sentence. The last line is the avarage loss for all of the random sentences.  
+####  Here are the results of loading the model and calculating the loss over 50 sentences. Structure: Sentence Number, Sentence text, and Loss for the sentence. The last line is the avarage loss for all of the random sentences.  
 
     Sentence Number 11777:[  `` not the greatest sorcerer in the world , '' said harry , breathing fast ] Loss: 3.744226
     Sentence Number 127:[  husband ] Loss: 3.192912
@@ -272,15 +272,15 @@ We calculated the loss for the whole database, and also calculated the loss for 
     Average loss for the random sentences is: 4.413114
     
     
-#### comment: We also calculated the loss over all the dataset using the functions mentioned above. 
+####  We also calculated the loss over all the dataset using the functions mentioned above. 
 
     Average loss for all sentences in the text: 4.616136
     
-#### comment:Second Metric: Levinstein distance. In information theory and computer science, the Levenshtein distance is a string metric for measuring the difference between two sequences. Informally, the Levenshtein distance between two words is the minimum number of single-character edits (i.e. insertions, deletions or substitutions) required to change one word into the other.
+#### Second Metric: Levinstein distance. In information theory and computer science, the Levenshtein distance is a string metric for measuring the difference between two sequences. Informally, the Levenshtein distance between two words is the minimum number of single-character edits (i.e. insertions, deletions or substitutions) required to change one word into the other.
 
-#### comment:Third  Metric: Jaccard. The Jaccard index, also known as the Jaccard similarity coefficient, is a statistic used for comparing the similarity between strings. The Jaccard coefficient is defined as the size of the intersection divided by the size of the union of sets (in our project - the sentences)
+#### Third  Metric: Jaccard. The Jaccard index, also known as the Jaccard similarity coefficient, is a statistic used for comparing the similarity between strings. The Jaccard coefficient is defined as the size of the intersection divided by the size of the union of sets (in our project - the sentences)
 
-#### comment:Here are the results of the evaluation. We created 50 sentences (feel free to change it in the code for creating more sentences). After each sentence we printed the minimum distance between the predicted sentence to the closest sentence in the text. As a final step, we calculated the avarage of the minimum values that we found. 
+#### Here are the results of the evaluation. We created 50 sentences (feel free to change it in the code for creating more sentences). After each sentence we printed the minimum distance between the predicted sentence to the closest sentence in the text. As a final step, we calculated the avarage of the minimum values that we found. 
 
 
     began swallowed - `` SENTENCE_END ! ''
@@ -451,7 +451,7 @@ We calculated the loss for the whole database, and also calculated the loss for 
 
 
 
-#### comment:The code:
+#### The code:
 
     #computes jaccard and levinstein distance using python pacages "Distance"
     def calculateSimilarity_WithDistancePackage(createdSentence): #createdSentence is list of words
@@ -508,7 +508,7 @@ We calculated the loss for the whole database, and also calculated the loss for 
 ### Conclusions
 
 
-#### comment: Conclusions: Let's first print some sentences from our model:
+####  Conclusions: Let's first print some sentences from our model:
 
     she was aloud . SENTENCE_END at
     he reached . SENTENCE_END through his arm .
@@ -546,5 +546,5 @@ We calculated the loss for the whole database, and also calculated the loss for 
     and then he saw into
 
 
-#### comment: As we can see from the results, some of the sentences have meaningfull connection between the words. Furthermore, the model has learned punctuation. for example - it puts "." at the end of the sentence. Another thing that we can see from the results is that the model predicts too often the word "Sentence_End". We think that the reason for this is becuase "Sentence_End" appears in every sentences in the text (We add it to the end of each sentence in the preprocessing phase), which causes the word to have large probabilty as the next word prediction. 
+#### As we can see from the results, some of the sentences have meaningfull connection between the words. Furthermore, the model has learned punctuation. for example - it puts "." at the end of the sentence. Another thing that we can see from the results is that the model predicts too often the word "Sentence_End". We think that the reason for this is becuase "Sentence_End" appears in every sentences in the text (We add it to the end of each sentence in the preprocessing phase), which causes the word to have large probabilty as the next word prediction. 
 By looking at the avarage loss over all sentences - it is much better from a model that chooses the next word randomally, for example. However, It is not perfect. We trained the model over more then 24 hours. Maybe if we had a stronger computer and more time, we could better learn the text and produce even more concise sentences. 
