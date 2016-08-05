@@ -181,8 +181,10 @@ Training the model took us alot of time due to the high number of sentences in H
 
 ### Calculating Similarity
 
+#### We calculated the similarity in 3 different metrices, each one gives another point of view to the model predictions. 
+
         
-#### comment: Calculating the similarity between the real sentences and the predicted sentences. The measure that we used for the calculation is Cross-Entroty-Loss. for each word in a sentence, it measures how far our prediction was from the real word. For example, if we have a sentence - "We are eating dinner with some friends" and we want to predict the word which comes after "dinner". the model generate a vector (in the size of the vocabulary) with probabliltes for each word. let's say the the word "with" has a probabilty of 0.8 to be the next word. so the distance of the prediction is Yn*Log(On). Yn equals 1, On eqauls 0.8. We do this calculation for every word in the sentence and sum it up. finally, we divide it by the number of words in the sentence to get avarage loss for each word. 
+#### comment: First Metric: Cross Entory Loss. for each word in a sentence, it measures how far our prediction was from the real word. For example, if we have a sentence - "We are eating dinner with some friends" and we want to predict the word which comes after "dinner". the model generate a vector (in the size of the vocabulary) with probabliltes for each word. let's say the the word "with" has a probabilty of 0.8 to be the next word. so the distance of the prediction is Yn*Log(On). Yn equals 1, On eqauls 0.8. We do this calculation for every word in the sentence and sum it up. finally, we divide it by the number of words in the sentence to get avarage loss for each word. 
 We calculated the loss for the whole database, and also calculated the loss for 50 sentences that we picked randomally (feel free to change the number of random sentences and run it again). 
 
     def calculateSimilarity():
@@ -274,6 +276,229 @@ We calculated the loss for the whole database, and also calculated the loss for 
 
     Average loss for all sentences in the text: 4.616136
     
+#### comment:Second Metric: Levinstein distance. In information theory and computer science, the Levenshtein distance is a string metric for measuring the difference between two sequences. Informally, the Levenshtein distance between two words is the minimum number of single-character edits (i.e. insertions, deletions or substitutions) required to change one word into the other.
+
+#### comment:Third  Metric: Jaccard. The Jaccard index, also known as the Jaccard similarity coefficient, is a statistic used for comparing the similarity between strings. The Jaccard coefficient is defined as the size of the intersection divided by the size of the union of sets (in our project - the sentences)
+
+#### comment:Here are the results of the evaluation. We created 50 sentences (feel free to change it in the code for creating more sentences). After each sentence we printed the minimum distance between the predicted sentence to the closest sentence in the text. As a final step, we calculated the avarage of the minimum values that we found. 
+
+
+    began swallowed - `` SENTENCE_END ! ''
+    Best Distance Levinshtein: 5.000000
+    Best Distance Jaccard: 0.700000
+    he shrieked at SENTENCE_END shot of roots - ''
+    Best Distance Levinshtein: 7.000000
+    Best Distance Jaccard: 0.727273
+    . '' SENTENCE_END their elf , pearly through his
+    Best Distance Levinshtein: 7.000000
+    Best Distance Jaccard: 0.714286
+    but dobby -- '' SENTENCE_END
+    Best Distance Levinshtein: 3.000000
+    Best Distance Jaccard: 0.666667
+    * % 235* , his roomier didn't
+    Best Distance Levinshtein: 5.000000
+    Best Distance Jaccard: 0.714286
+    looked was quite doubt , but or all birthday chances , you
+    Best Distance Levinshtein: 9.000000
+    Best Distance Jaccard: 0.764706
+    `exactly nose at hogwarts top or
+    Best Distance Levinshtein: 4.000000
+    Best Distance Jaccard: 0.777778
+    stealing . SENTENCE_END `` told muggles did hagrid until to do ? ''
+    Best Distance Levinshtein: 9.000000
+    Best Distance Jaccard: 0.750000
+    out of the pocket .
+    Best Distance Levinshtein: 2.000000
+    Best Distance Jaccard: 0.500000
+    abruptly , SENTENCE_END would open-mouthed
+    Best Distance Levinshtein: 4.000000
+    Best Distance Jaccard: 0.750000
+    said hermione 's surprise .
+    Best Distance Levinshtein: 3.000000
+    Best Distance Jaccard: 0.600000
+    gamekeeper , SENTENCE_END it in our crossbow into
+    Best Distance Levinshtein: 6.000000
+    Best Distance Jaccard: 0.750000
+    toast back out him .
+    Best Distance Levinshtein: 3.000000
+    Best Distance Jaccard: 0.600000
+    ron and hermione stiffly at eleven again .
+    Best Distance Levinshtein: 4.000000
+    Best Distance Jaccard: 0.600000
+    wandering SENTENCE_END SENTENCE_END word SENTENCE_END this leg-holes .
+    Best Distance Levinshtein: 6.000000
+    Best Distance Jaccard: 0.714286
+    they massive come in drawers id oozing
+    Best Distance Levinshtein: 5.000000
+    Best Distance Jaccard: 0.750000
+    came off the night bright .
+    Best Distance Levinshtein: 4.000000
+    Best Distance Jaccard: 0.750000
+    rocking SENTENCE_END SENTENCE_END out to the sugar
+    Best Distance Levinshtein: 5.000000
+    Best Distance Jaccard: 0.666667
+    memory SENTENCE_END at her eye .
+    Best Distance Levinshtein: 4.000000
+    Best Distance Jaccard: 0.714286
+    `` jolt ? SENTENCE_END , harry is this is after his eyes
+    Best Distance Levinshtein: 9.000000
+    Best Distance Jaccard: 0.666667
+    filthy SENTENCE_END . SENTENCE_END to make
+    Best Distance Levinshtein: 5.000000
+    Best Distance Jaccard: 0.625000
+    he could see SENTENCE_END SENTENCE_END , spreading to
+    Best Distance Levinshtein: 5.000000
+    Best Distance Jaccard: 0.571429
+    they : SENTENCE_END and frozen it sighed into
+    Best Distance Levinshtein: 6.000000
+    Best Distance Jaccard: 0.727273
+    his whole SENTENCE_END prominent me
+    Best Distance Levinshtein: 4.000000
+    Best Distance Jaccard: 0.800000
+    . '' SENTENCE_END dumbledore .
+    Best Distance Levinshtein: 4.000000
+    Best Distance Jaccard: 0.750000
+    4 SENTENCE_END the opening hole .
+    Best Distance Levinshtein: 4.000000
+    Best Distance Jaccard: 0.750000
+    he 're were grave dobby wall .
+    Best Distance Levinshtein: 5.000000
+    Best Distance Jaccard: 0.777778
+    quietly . SENTENCE_END bad-tempered death out of the school heap
+    Best Distance Levinshtein: 7.000000
+    Best Distance Jaccard: 0.692308
+    said professor mcgonagall silver .
+    Best Distance Levinshtein: 2.000000
+    Best Distance Jaccard: 0.400000
+    . '' SENTENCE_END recent .
+    Best Distance Levinshtein: 4.000000
+    Best Distance Jaccard: 0.750000
+    will SENTENCE_END joined ! ''
+    Best Distance Levinshtein: 4.000000
+    Best Distance Jaccard: 0.777778
+    . SENTENCE_END SENTENCE_END , still
+    Best Distance Levinshtein: 3.000000
+    Best Distance Jaccard: 0.600000
+    his hand was a packed b-bill .
+    Best Distance Levinshtein: 5.000000
+    Best Distance Jaccard: 0.714286
+    staring SENTENCE_END petunia , too .
+    Best Distance Levinshtein: 4.000000
+    Best Distance Jaccard: 0.666667
+    . '' SENTENCE_END long angrily .
+    Best Distance Levinshtein: 5.000000
+    Best Distance Jaccard: 0.777778
+    said riddle smoothly . SENTENCE_END at two away .
+    Best Distance Levinshtein: 6.000000
+    Best Distance Jaccard: 0.750000
+    soo SENTENCE_END ... SENTENCE_END SENTENCE_END dudley again .
+    Best Distance Levinshtein: 6.000000
+    Best Distance Jaccard: 0.714286
+    loudly at bushy ! ''
+    Best Distance Levinshtein: 4.000000
+    Best Distance Jaccard: 0.777778
+    now still drowsy ? SENTENCE_END petunia .
+    Best Distance Levinshtein: 5.000000
+    Best Distance Jaccard: 0.714286
+    ginny turned to harry SENTENCE_END his head
+    Best Distance Levinshtein: 4.000000
+    Best Distance Jaccard: 0.625000
+    strange doing out of minds . ''
+    Best Distance Levinshtein: 5.000000
+    Best Distance Jaccard: 0.714286
+    harry baring . SENTENCE_END wand
+    Best Distance Levinshtein: 4.000000
+    Best Distance Jaccard: 0.666667
+    ron . SENTENCE_END not .
+    Best Distance Levinshtein: 4.000000
+    Best Distance Jaccard: 0.714286
+    SENTENCE_END SENTENCE_END the station .
+    Best Distance Levinshtein: 3.000000
+    Best Distance Jaccard: 0.666667
+    . '' SENTENCE_END happened .
+    Best Distance Levinshtein: 3.000000
+    Best Distance Jaccard: 0.714286
+    secrets . SENTENCE_END up SENTENCE_END . ''
+    Best Distance Levinshtein: 5.000000
+    Best Distance Jaccard: 0.600000
+    the SENTENCE_END SENTENCE_END him into his voice .
+    Best Distance Levinshtein: 5.000000
+    Best Distance Jaccard: 0.700000
+    but i am it SENTENCE_END .
+    Best Distance Levinshtein: 4.000000
+    Best Distance Jaccard: 0.666667
+    heavily - '' SENTENCE_END SENTENCE_END , boxes by harry potter ? ''
+    Best Distance Levinshtein: 8.000000
+    Best Distance Jaccard: 0.636364
+    twice when it half on `` sent all ... ... ah will be ill ! ''
+    Best Distance Levinshtein: 13.000000
+    Best Distance Jaccard: 0.761905
+    Avarage of minimum distances of jaccard: 0.693593
+    Avarage of minimum distances of levinsterin: 5.000000
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#### comment:The code:
+
+    #computes jaccard and levinstein distance using python pacages "Distance"
+    def calculateSimilarity_WithDistancePackage(createdSentence): #createdSentence is list of words
+    
+        levinDist = {}
+        jaccardDist = {}
+        bestValues = {}
+        for i in range(len(X_train)):
+            currSentence = X_train[i]
+            sentence_str = [index_to_word[x] for x in currSentence[1:-1]]  # sentence_str is list of words
+            #Levinstein Distance
+            dist = distance.levenshtein(createdSentence, sentence_str)
+            dist2 = distance.jaccard(createdSentence,sentence_str)
+            #print(dist)
+            if (dist>0):
+                #print ("Distance Levinshtein: %f" % (dist))
+                levinDist[i]=dist
+            jaccardDist[i]=dist2
+            #print ("Jaccard Distance: %f" % (dist2))
+    
+        #take best value
+        levinMin = min(levinDist.itervalues())
+        jaccardMin = min(jaccardDist.itervalues())
+    
+        print ("Best Distance Levinshtein: %f" % (levinMin))
+        print ("Best Distance Jaccard: %f" % (jaccardMin))
+        bestValues["Jaccard"]=jaccardMin
+        bestValues["Levin"]=levinMin
+        return bestValues
+        
+        
+        
+        
+    #generate sentences and calculating the jaccard and levinstein similarity
+    def createSentences(numOfSentences):
+        sumLevin=0
+        sumJaccard=0
+        for i in range(numOfSentences):
+            sent = []
+            sent = generate_sentence(model) # sent is list of words
+            print " ".join(sent)
+            distances = calculateSimilarity_WithDistancePackage(sent)
+            sumLevin=sumLevin+distances["Levin"]
+            sumJaccard=sumJaccard+distances["Jaccard"]
+    
+        print ("Avarage of minimum distances of jaccard: %f" % (sumJaccard/numOfSentences))
+        print ("Avarage of minimum distances of levinsterin: %f" % (sumLevin / numOfSentences))      
+
+
 
 
 7.
