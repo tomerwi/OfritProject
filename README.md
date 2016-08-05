@@ -24,7 +24,7 @@ Data Analysis:
 
 ### Preprocessing
 
-#### Inilize variables. Replace all the words which are not in our vocabulary with "Unknown_Token". Append Setence_Start and Sentence_End to the sentence - it is used becuase we want to "teach" the model which words open sentences and which one end them.
+#### comment:Inilize variables. Replace all the words which are not in our vocabulary with "Unknown_Token". Append Setence_Start and Sentence_End to the sentence - it is used becuase we want to "teach" the model which words open sentences and which one end them.
 Leraning rate - regulzation parameter - mainly used to prevent overfitting.
 Nepoch - number of iterations in the training phaze. 
 Hidden_Dim - the memory of the network - making it bigger allows us to learn complex patterns in the data
